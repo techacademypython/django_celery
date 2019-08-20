@@ -27,6 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "sebuhi.sukurov.sh@gmail.com"
+EMAIL_HOST_PASSWORD ="jjhuacxnagzjeijm"
 
 # Application definition
 
@@ -39,9 +45,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'celery',
     'django_celery_results',
+    'django_celery_beat',
+    'widget_tweaks',
     'news.apps.NewsConfig',
 ]
 
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/login/"
 CELERY_RESULT_BACKEND = 'django-db'
 
 MIDDLEWARE = [

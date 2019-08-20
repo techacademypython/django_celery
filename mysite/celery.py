@@ -23,8 +23,17 @@ app.conf.update(
 
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
+#
+# app.conf.beat_schedule = {
+#     'add-every-1-seconds': {
+#         'task': 'news.tasks.get_name',
+#         'schedule': 1,
+#         'args': ()
+#     },
+# }
 
 
 @app.task(bind=True)
 def debug_task(self):
     print('Request: {0!r}'.format(self.request))
+
