@@ -26,7 +26,7 @@ class ForgetPasswordView(generic.FormView):
             token = Token.objects.create(
                 user=user
             )
-            send_mail(user.email, token.get_verify_url())
+            send_mail.delay(user.username, token.get_verify_url())
             return redirect("/success/")
         else:
             return redirect("/success/")
@@ -50,7 +50,8 @@ class VerifyView(generic.View):
     def get(self, request, user_id, token):
         verify = Token.objects.filter(
             user_id=user_id,
-            token=token
+            token=token,
+            expire=False
         ).last()
         if verify:
             context = {}
@@ -62,7 +63,8 @@ class VerifyView(generic.View):
     def post(self, request, user_id, token):
         verify = Token.objects.filter(
             user_id=user_id,
-            token=token
+            token=token,
+            expire=False
         ).last()
         if verify:
             if not verify.expire:
@@ -72,6 +74,7 @@ class VerifyView(generic.View):
                 if form.is_valid():
                     password = form.cleaned_data.get("new_password")
                     verify.user.set_password(password)
+                    verify.user.save()
                     return redirect("/login/")
                 else:
                     return redirect("/")

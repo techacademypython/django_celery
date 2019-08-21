@@ -14,6 +14,7 @@
 
 <div class="container">
     <h2>Login</h2>
+    <p>Forget password ? <a href="{% url 'forget' %}">link</a></p>
     <form method="post">
         {% csrf_token %}
         {% for field in form %}
