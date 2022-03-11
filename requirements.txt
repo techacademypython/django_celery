@@ -8,7 +8,7 @@ django-timezone-field==3.0
 django-widget-tweaks==1.4.5
 importlib-metadata==0.19
 kombu==4.6.4
-Pillow==6.1.0
+Pillow==9.0.1
 python-crontab==2.3.8
 python-dateutil==2.8.0
 python-dotenv==0.10.3
